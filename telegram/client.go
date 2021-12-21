@@ -16,7 +16,7 @@ func NewClient(telegramToken string, chatID int64) (*Client, error) {
 	if err != nil {
 		return nil, fmt.Errorf("unable to create new bot api: %w", err)
 	}
-	b.Debug = false
+	b.Debug = true
 
 	return &Client{
 		b:      b,

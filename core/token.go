@@ -32,11 +32,15 @@ func (t Token) ToMsg() string {
 	return fmt.Sprintf("Address: <a href=\"https://etherscan.io/token/%s\"><b>%s</b></a>\n"+
 		"Name: <b>%s</b>\n"+
 		"Symbol: <b>%s</b>\n"+
-		"TotalSupply: <b>%v</b>\n",
+		"TotalSupply: <b>%v</b>\n"+
+		"Twitter: <a href=\"https://twitter.com/search?q=$%s&f=live\"><b>$%s</b></a> <a href=\"https://twitter.com/search?q=$%s&f=live\"><b>Address</b></a>",
+		// "Google: <a href=\"https://www.google.com/search?q=\"$%s\"\"><b>$%s</b></a> <a href=\"https://www.google.com/search?q=\"$%s\"\">Address</a>\n",
 		t.Address.String(), t.Address.String(),
 		t.Name,
 		t.Symbol,
 		t.TotalSupply,
+		t.Symbol, t.Symbol, t.Address,
+		// t.Symbol, t.Symbol, t.Address,
 	)
 }
 
@@ -86,15 +90,12 @@ func (c *Coordinator) getTokenData(tokenAddr common.Address) (Token, error) {
 		symbol = ""
 	}
 
-	totalSupply, err := t.TotalSupply(&bind.CallOpts{})
+	var totalSupply *big.Int
+	totalSupply, err = t.TotalSupply(&bind.CallOpts{})
 	if err != nil {
-		return Token{}, fmt.Errorf("could not retrieve token total supply: %w", err)
+		totalSupply = big.NewInt(0)
 	}
 
-	// retrieve token decimals to ensure this is correct ERC20/ERC20-like token implementation.
-	if _, err := t.Decimals(&bind.CallOpts{}); err != nil {
-		return Token{}, fmt.Errorf("could not retrieve token decimals: %w", err)
-	}
 	return Token{
 		Address:     tokenAddr,
 		Name:        name,
