@@ -33,14 +33,13 @@ func (t Token) ToMsg() string {
 		"Name: <b>%s</b>\n"+
 		"Symbol: <b>%s</b>\n"+
 		"TotalSupply: <b>%v</b>\n"+
-		"Twitter: <a href=\"https://twitter.com/search?q=$%s&f=live\"><b>$%s</b></a> <a href=\"https://twitter.com/search?q=%s&f=live\"><b>Address</b></a>\n"+
-		"Google: <a href=\"https://www.google.com/search?q=\"$%s\"\"><b>$%s</b></a>", //<a href=\"https://www.google.com/search?q=\"$%s\"\">Address</a>",
+		"Twitter: <a href=\"https://twitter.com/search?q=$%s&f=live\"><b>$%s</b></a> "+
+		"<a href=\"https://twitter.com/search?q=%s&f=live\"><b>Address</b></a>"+
 		t.Address.String(), t.Address.String(),
 		t.Name,
 		t.Symbol,
 		t.TotalSupply,
 		t.Symbol, t.Symbol, t.Address,
-		t.Symbol, t.Symbol,
 	)
 }
 
