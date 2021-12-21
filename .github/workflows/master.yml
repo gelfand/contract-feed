@@ -53,6 +53,6 @@ jobs:
             export TELEGRAM_CHAT_ID=${{ secrets.TELEGRAM_CHAT_ID }}
             export RPC_ADDRESS=${{ secrets.RPC_ADDRESS }}
             # Run a new container from a new image
-            docker run -e TELEGRAM_TOKEN  -e TELEGRAM_CHAT_ID -e RPC_ADDRESS \
-            --pull always --name $(echo $CONTAINER_NAME) \
+            docker run -d -e TELEGRAM_TOKEN  -e TELEGRAM_CHAT_ID -e RPC_ADDRESS \
+            --pull always --network host --name $(echo $CONTAINER_NAME) \
             ${{ secrets.DOCKERHUB_USERNAME }}/$(echo $IMAGE_NAME):latest
